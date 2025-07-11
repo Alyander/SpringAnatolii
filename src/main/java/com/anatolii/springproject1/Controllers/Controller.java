@@ -15,13 +15,14 @@ public class Controller {
     public Controller(TaskDAO taskDAO) {
         this.taskDAO = taskDAO;
     }
-    @GetMapping
+
+    @GetMapping("/")
     public ModelAndView getTasks(ModelAndView modelAndView) {
         modelAndView.addObject("listTasks", taskDAO.getAllByPage(1,11));
         modelAndView.setViewName("index");
         return modelAndView;
     }
-    @GetMapping("/{page}")
+    @GetMapping("/page/{page}")
     public ModelAndView getTasksWithPaging(@PathVariable String page,ModelAndView modelAndView) {
         modelAndView.addObject("listTasks", taskDAO.getAllByPage(Integer.parseInt(page),11));
         modelAndView.setViewName("index");

@@ -39,7 +39,10 @@ public class TaskDAO {
     public void create(Task task) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-
+            Task taskL = new Task();
+            taskL.setDescription(task.getDescription());
+            taskL.setStatus(task.getStatus());
+            session.persist(taskL);
             session.getTransaction().commit();
         }
     }
