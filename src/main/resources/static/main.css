@@ -17,3 +17,10 @@ tr {
     cursor: pointer;
     transition: all 0.3s ease;
 }
+.form_item {
+    border: 1px solid;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 2px 5px;
+}

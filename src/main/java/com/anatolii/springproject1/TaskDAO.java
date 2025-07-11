@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ public class TaskDAO {
     }
     public List<Task> getAllByPage(int page, int size) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Task", Task.class).setFirstResult(page == 1 ? 0 : (page*size)).setMaxResults(size).list();
+            return session.createQuery("from Task", Task.class).setFirstResult(page == 1 ? 0 : ((page-1)*size)).setMaxResults(size).list();
         }
     }
     public void delete(int id) {
@@ -45,5 +46,17 @@ public class TaskDAO {
             session.persist(taskL);
             session.getTransaction().commit();
         }
+    }
+    public List<Integer> getPages(int size) {
+        int pages;
+        List<Integer> pagesList = new ArrayList<>();
+        try (Session session = sessionFactory.openSession()) {
+           int all =  session.createNativeQuery("select count(*) from task", int.class).uniqueResult();
+           pages =(int)Math.ceil(all/(double)size);
+        }
+        for (int i = 0; i < pages; i++) {
+            pagesList.add(i+1);
+        }
+        return pagesList;
     }
 }

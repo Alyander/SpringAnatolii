@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Component
 @Entity
@@ -23,4 +22,9 @@ public class Task {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "status")
     private Status status;
+
+    public Task(String description, Status status) {
+        this.description = description;
+        this.status = status;
+    }
 }
