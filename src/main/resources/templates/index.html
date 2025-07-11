@@ -6,33 +6,35 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../static/main.css" th:href="@{/main.css}">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Tasks</title>
 </head>
-<body>
-    <table>
-        <tr>
-            <th class="">ID</th>
-            <th class=" ">Description</th>
-            <th class="">Status</th>
-            <th class=" ">Action</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td><button></button></td>
-        </tr>
-    </table>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th,td {
-            padding-left: 2px;
-            padding-right: 2px;
-        }
-    </style>
+<body class="flex justify-center">
+
+    <div class="container flex justify-center">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="task : ${listTasks}">
+                <td th:text="${task.id}"></td>
+                <td th:text="${task.description}"></td>
+                <td th:text="${task.status}"></td>
+                <td>
+                    <button class="bg-blue-500 text-white pt-2 pl-4 pr-4 pb-2
+                    rounded-xl m-2 hover:bg-black button-edit button" data-id="1"  th:attr="data-id=${task.id}">Edit</button>
+                    <button class="bg-blue-500 text-white pt-2 pl-4 pr-4 pb-2
+                    rounded-xl m-2 hover:bg-black button-delete button" data-id="1" th:attr="data-id=${task.id}">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script  th:src="@{/main.js}"></script>
 </body>
 </html>
